@@ -31,7 +31,7 @@ class Login extends BaseController
             $id   = $User['id'];
             $usrn = $User['username'];
             $pasw = $User['password'];
-            if($pass == $pasw){
+            if(password_verify($pass, $pasw)){
                 $session_data = [
                     'sess_token'    => md5($id,$usrn),
                     'sess_user'     => $User['username'],

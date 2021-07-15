@@ -12,13 +12,14 @@ class Signup extends BaseController
     public function new()
     {
         $model = new UsersModel();
+        
 
         $data = [
             'username' => $this->request->getVar('username'),
-            'password' => $this->request->getVar('password'),
-            'name' => $this->request->getVar('name'),
-            'email' => $this->request->getVar('email'),
-            'type' => $this->request->getVar('type')
+            'password' => password_hash($pass = $this->request->getVar('password'), PASSWORD_DEFAULT),
+            'name'     => $this->request->getVar('name'),
+            'email'    => $this->request->getVar('email'),
+            'type'     => $this->request->getVar('type')
         ];
 
         if($model->save($data)){
