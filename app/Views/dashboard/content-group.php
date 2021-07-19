@@ -45,7 +45,7 @@
                                     {
                             ?>
                                 <div class="card py-3 px-4 mb-3">
-                                    <a class="h4 text-dark"><?=$item->name?></a>
+                                    <a href="<?= base_url()."/group/".$Group['group_code']."/quiz/".$item->hash?>" class="h4 text-dark"><?=$item->name?></a>
                                 </div>
                             <?php
                                     }
