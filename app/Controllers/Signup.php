@@ -12,7 +12,6 @@ class Signup extends BaseController
     public function new()
     {
         $model = new UsersModel();
-        
 
         $data = [
             'username' => $this->request->getVar('username'),
