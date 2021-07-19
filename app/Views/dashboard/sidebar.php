@@ -198,6 +198,20 @@
                                 </form>
                             </div>
                         </li>
+                    
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span style="font-size: 16pt;"><i class="fas fa-plus text-gray-800"></i></span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<?php base_url() ?>/group/">Buat Grup</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#join_groupModal">Gabung Grup</a>
+                            </div>
+                        </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -235,134 +249,3 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    </div>
-
-                    <!-- Content -->
-                    <?php
-                        $db = \Config\Database::connect();
-                        $user   = $db->table('users')->getWhere(['username'=>$usrn])->getRowArray();
-                        $groups  = $db->table('users_groups')->getWhere(['id_user'=>$user['id']])->getResult();
-                        if(count($groups) == 0)
-                        {                                      
-                    ?>
-                    <div class="d-flex flex-column py-5 mt-5">
-                        <h2 style="text-align: center;">Anda belum bergabung ke dalam kelas manapun.</h2>
-                        <h3 style="text-align: center;">Coba buat kelas atau bergabung dengan menggunakan kode kelas.</h3>
-                        <div style="text-align: center;" class="dropdown">
-                            <a alt="Tambah Kelas" title="Tambah Kelas" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i style="font-size:3rem;" class="fas fa-plus text-gray-800"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <a href="<?php base_url() ?>/group" class="dropdown-item" type="button">Buat Kelas</a>
-                                <a href="" class="dropdown-item" type="button">Gabung Kelas</a>
-                            </div>
-                        </div>
-                    </div>
-                    <?php 
-                        }else{
-                    ?>
-                    <div class="row">
-                    <?php
-                            foreach($groups as $item)
-                            {
-                                $group  = $db->table('groups')->getWhere(['id'=>$item->id_group])->getRow();
-                    ?>
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-md-4 mb-4">
-                            <div class="card border-dark h-100">
-                                <div class="card-header pt-3 pb-5 bg-primary">
-                                    <div class="h5 mb-0 font-weight-bold text-light text-uppercase">
-                                        <?= $group->group_name;?>   
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="mb-0 font-weight-bold text-gray-800"><?= $group->group_desc;?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                            }
-                    ?>
-                    </div>
-                    <?php
-                        }
-                    ?>
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="<?=base_url()?>/main/logout/">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="<?=base_url()?>/assets/jquery/jquery.min.js"></script>
-    <script src="<?=base_url()?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<?=base_url()?>/assets/jquery-easing/jquery.easing.min.js"></script>
-    
-    <script src="<?=base_url()?>/assets/js/sb-admin-2.min.js"></script>
-    <script src="<?=base_url()?>/assets/js/demo/chart-area-demo.js"></script>
-    <!-- Bootstrap core JavaScript-->
-
-    <!-- Page level plugins -->
-    <script src="<?=base_url()?>/assets/chart.js/Chart.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <!-- Page level custom scripts -->
-    <script src="<?=base_url()?>/assets/js/demo/chart-area-demo.js"></script>
-    <script src="<?=base_url()?>/assets/js/demo/chart-pie-demo.js"></script>
-
-    
-    
-</body>
-
-</html>
