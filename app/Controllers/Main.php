@@ -6,18 +6,12 @@ class Main extends BaseController
 {
 	public function index()
 	{
-		$Model    = new UsersModel();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
-			$user    = $Model->where('username', $usr)->first();
-			$data    = 
-			[
-				'assets'    => "assets",
-				'usrn'      => $user['username'],
-				'log'       => $log
-			];
+			$user    = $this->UserModel->where('username', $usr)->first();
+			$data    = $this->data;
+			$data['usrn'] = $user['username'];
 
 			echo view('dashboard/sidebar', $data);
 			echo view('dashboard/content-home', $data);
@@ -30,10 +24,9 @@ class Main extends BaseController
 
 	public function group($group_hash)
 	{
-		$db       = \Config\Database::connect();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$db       = $this->db;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
 			$User    = new UsersModel();
 			$Group   = $db->table('groups')->getWhere(['group_code'=>$group_hash])->getRowArray();
@@ -60,7 +53,7 @@ class Main extends BaseController
 				return redirect()->to('/');
 			}
 		}else{
-			return redirect()->to('login');
+			return redirect()->to(base_url('login'));
 		}
 	}
 
@@ -70,9 +63,9 @@ class Main extends BaseController
 		$log     = $Session->sess_log;
 		if($log == 1){
 			$Session->destroy();
-			return redirect()->to('/login');
+			return redirect()->to(base_url('login'));
 		}else{
-			return redirect()->to('/login');
+			return redirect()->to(base_url());
 		}
 	}
 }

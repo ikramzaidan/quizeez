@@ -8,39 +8,31 @@ class Group extends BaseController
 {
 	public function index()
 	{
-		$Model    = new UsersModel();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
-			$user    = $Model->where('username', $usr)->first();
-			$data    = 
-			[
-				'assets'    => "assets",
-				'usrn'      => $user['username'],
-				'log'       => $log,
-			];
+			$user    = $this->UserModel->where('username', $usr)->first();
+			$data    = $this->data;
+			$data['usrn'] = $user['username'];
 
 			return view('dashboard/content-createGroup', $data);
 		}else{
-			return redirect()->to('login');
+			return redirect()->to(base_url('login'));
 		}
 	}
 
 	public function member($group_hash)
 	{
-		$db      = \Config\Database::connect();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
 			$User    = new UsersModel();
-			$Group   = $db->table('groups')->getWhere(['group_code'=>$group_hash])->getRowArray();
+			$Group   = $this->db->table('groups')->getWhere(['group_code'=>$group_hash])->getRowArray();
 			if($Group){
 				$user    = $User->where('username', $usr)->first();
-				$Verif   = $db->table('users_groups')->where('id_group', $Group['id'])->getWhere(['id_user'=>$user['id']])->getRowArray();
+				$Verif   = $this->db->table('users_groups')->where('id_group', $Group['id'])->getWhere(['id_user'=>$user['id']])->getRowArray();
 				if($Verif){
-					$data    = 
+					$data  = 
 					[
 						'assets'    => "assets",
 						'usrn'      => $user['username'],
@@ -49,7 +41,9 @@ class Group extends BaseController
 						'log'       => $log
 					];
 
-					return view('dashboard/content-group-member', $data);
+					echo view('dashboard/sidebar', $data);
+					echo view('dashboard/content-group-member', $data);
+					echo view('dashboard/footer', $data);
 					}
 				else{
 					return redirect()->to('/');
@@ -66,9 +60,8 @@ class Group extends BaseController
 	{
 		$UserModel    = new UsersModel();
         $GroupModel   = new GroupsModel();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
 			$User    = $UserModel->where('username', $usr)->first();
 
@@ -98,13 +91,12 @@ class Group extends BaseController
 		$db      = \Config\Database::connect();
 		$UserModel    = new UsersModel();
         $GroupModel   = new GroupsModel();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
 			$User      = $UserModel->where('username', $usr)->first();
 			$groupCode = $this->request->getVar('group_code');
-			$Group     = $db->table('groups')->getWhere(['group_code'=>$groupCode])->getRowArray();
+			$Group     = $this->db->table('groups')->getWhere(['group_code'=>$groupCode])->getRowArray();
 			if($Group){
 				$data = [
 					'id_user'  => $User['id'],
@@ -124,9 +116,8 @@ class Group extends BaseController
 	public function create_quiz($group_hash)
 	{
 		$db      = \Config\Database::connect();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
 			$User    = new UsersModel();
 			$Group   = $db->table('groups')->getWhere(['group_code'=>$group_hash])->getRowArray();
@@ -160,10 +151,9 @@ class Group extends BaseController
 
 	public function create_quiz_insert($group_hash)
 	{
-		$db      = \Config\Database::connect();
-		$Session  = session();
-		$log      = $Session->sess_log;
-		$usr      = $Session->sess_user;
+		$db       = \Config\Database::connect();
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
 		if($log == 1){
 			$User    = new UsersModel();
 			$Quiz    = new QuizModel();
