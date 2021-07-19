@@ -31,6 +31,11 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Main::index');
+$routes->get('group/(:segment)', 'Main::group/$1');
+$routes->get('group/(:segment)/member', 'Group::member/$1');
+$routes->get('group/(:segment)/quiz/create', 'Group::create_quiz/$1');
+$routes->add('group/(:segment)/quiz/createNew', 'Group::create_quiz_insert/$1');
+$routes->get('quiz','Quiz::index', ['filter' => 'loginfilter']);
 
 /**
  * --------------------------------------------------------------------
