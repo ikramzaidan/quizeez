@@ -15,6 +15,9 @@ namespace App\Controllers;
  */
 
 use CodeIgniter\Controller;
+use App\Models\UsersModel;
+use App\Models\GroupsModel;
+use App\Models\QuizModel;
 
 class BaseController extends Controller
 {
@@ -41,6 +44,18 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		// $this->session = \Config\Services::session();
+		$this->db         = \Config\Database::connect();
+		$this->UserModel  = new UsersModel();
+		$this->GroupModel = new GroupsModel();
+		$this->QuizModel  = new UsersModel();
+		$this->Session    = session();
+		$log      = $this->Session->sess_log;
+		$usr      = $this->Session->sess_user;
+		$this->data      = [
+			'assets'    => "assets",
+			'usr'       => $usr,
+			'log'       => $log
+		];
 	}
 
 }
