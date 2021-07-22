@@ -38,6 +38,12 @@ $routes->group('group', function($routes)
 	$routes->get('(:segment)/quiz/create', 'Group::create_quiz/$1');
 	$routes->add('(:segment)/quiz/createNew', 'Group::create_quiz_insert/$1');
 	$routes->get('(:segment)/quiz/(:segment)','Quiz::index/$1/$2', ['filter' => 'loginfilter']);
+	$routes->get('(:segment)/quiz/(:segment)/edit','Quiz::edit/$1/$2', ['filter' => 'loginfilter']);
+	$routes->get('(:segment)/quiz/(:segment)/quest/create','Question::create/$1/$2', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/quest/createNew','Question::createNew/$1/$2', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/quest/uploadImage','Question::uploadImage/$1/$2', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/attempt','Quiz::attempt/$1/$2', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/answer/mark/(:segment)','Answer::mark/$1/$2/$3', ['filter' => 'loginfilter']);
 });
 
 /**
