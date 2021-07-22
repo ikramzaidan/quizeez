@@ -18,6 +18,8 @@ use CodeIgniter\Controller;
 use App\Models\UsersModel;
 use App\Models\GroupsModel;
 use App\Models\QuizModel;
+use App\Models\QuestionModel;
+use App\Models\AnswerModel;
 
 class BaseController extends Controller
 {
@@ -48,6 +50,8 @@ class BaseController extends Controller
 		$this->UserModel  = new UsersModel();
 		$this->GroupModel = new GroupsModel();
 		$this->QuizModel  = new UsersModel();
+		$this->AnswerModel= new AnswerModel();
+		$this->QuestionModel = new QuestionModel();
 		$this->Session    = session();
 		$log      = $this->Session->sess_log;
 		$usr      = $this->Session->sess_user;
