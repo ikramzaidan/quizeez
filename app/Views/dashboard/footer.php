@@ -31,14 +31,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="group/join" method="post">
-                        <div>
-                            <input type="text" name="group_code" placeholder="Kode Grup">
+                    <div class="row justify-content-center py-3">
+                        <div class="col-11 mb-3">Masukan kode grup yang terdiri dari 5 karakter.
                         </div>
-                        <div>
-                            <button type="submit">Gabung</button>
+                        <div class="col-8">
+                            <form action="<?=base_url()?>/group/join" method="post">
+                                <input class="form-control" type="text" name="group_code" placeholder="Kode Grup">
                         </div>
-                    </form>
+                        <div class="col-3 mb-3">
+                                <button class="btn btn-primary w-100" type="submit">Gabung</button>
+                            </form>
+                        </div>
+                        <div class="col-11">Pastikan karakter sesuai dengan tetap mengikuti huruf besar dan kecil.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,7 +69,6 @@
         </div>
     </div>
 
-    <script src="<?=base_url()?>/assets/jquery/jquery.min.js"></script>
     <script src="<?=base_url()?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?=base_url()?>/assets/jquery-easing/jquery.easing.min.js"></script>
     
