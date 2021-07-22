@@ -102,11 +102,21 @@ class Group extends BaseController
 					'id_user'  => $User['id'],
 					'id_group' => $Group['id']
 				];
-				if($GroupModel->joinGroup($data)){
-					return redirect()->to('/main');
+				$VerifExist = $this->db->table('users_groups')->where('id_user', $User['id'])->getWhere(['id_group'=>$Group['id']])->getRowArray();
+				if(!$VerifExist){
+					if($GroupModel->joinGroup($data)){
+						return redirect()->to(base_url()."/group/".$groupCode);
+					}else{
+						$this->Session->setFlashdata('msg','Gagal masuk ke grup.');
+						return redirect()->to(base_url());
+					}
 				}else{
-					return redirect()->to('');
-				}	
+					$this->Session->setFlashdata('msg','Kamu sudah masuk ke dalam grup ini.');
+					return redirect()->to(base_url());
+				}
+			}else{
+				$this->Session->setFlashdata('msg','Grup tidak ditemukan.');
+				return redirect()->to(base_url());
 			}
 		}else{
 			return redirect()->to('login');
@@ -139,7 +149,9 @@ class Group extends BaseController
 					echo view('dashboard/footer', $data);
 					}
 				else{
-					return redirect()->to('/');
+					$this->Session->setFlashdata('clr',2);
+					$this->Session->setFlashdata('msg','Kamu tidak memiliki akses untuk membuat kuis di grup ini.');
+                	return redirect()->to(base_url()."/group/".$group_hash);
 				}
 			}else{
 				return redirect()->to('/');
@@ -172,9 +184,13 @@ class Group extends BaseController
 							'duration'   => $this->request->getVar('duration'),
 						];
 						if($Quiz->createQuiz($data)){
-							return redirect()->to('/main');
+							$this->Session->setFlashdata('clr',1);
+							$this->Session->setFlashdata('msg','Berhasil membuat kuis baru.');
+							return redirect()->to(base_url()."/group/".$group_hash);
 						}else{
-							return redirect()->to('/group');
+							$this->Session->setFlashdata('clr',2);
+							$this->Session->setFlashdata('msg','Gagal membuat kuis baru.');
+							return redirect()->to(base_url()."/group/".$group_hash);
 						}
 					}
 				}
