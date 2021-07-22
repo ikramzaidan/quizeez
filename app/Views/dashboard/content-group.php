@@ -36,6 +36,12 @@
                                 </li>
                             </ul>
                         </div>
+                        <?php if(session()->getFlashdata('msg')):?>
+                        <div class="alert <?php if(session()->getFlashdata('clr')==1):echo"alert-success";
+                          elseif(session()->getFlashdata('clr')==2):echo"alert-danger";endif;?>">
+                            <?= session()->getFlashdata('msg') ?>
+                        </div>
+                        <?php endif;?>
 
                         <div class="row">
                             <div class="col-md-8">
@@ -62,7 +68,7 @@
                             <div class="col-md-4">
                                 <div class="card py-3 px-4">
                                     <span class="text-dark mb-3">Belum ada kuis di grup ini, coba buat disini.</span>
-                                    <a class="btn btn-primary">Buat Kuis</a>
+                                    <a href="<?=base_url()."/group/".$Group['group_code']?>/quiz/create" class="btn btn-primary">Buat Kuis</a>
                                 </div>
                             </div>
                         </div>
