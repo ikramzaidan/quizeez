@@ -6,7 +6,16 @@ class Signup extends BaseController
 {
 	public function index()
 	{
-		return view('main/signup');
+        $Session = session();
+        $log     = $Session->sess_log;
+        if($log == 1){
+            return redirect()->to('/main');
+        }else{
+            $data = array(
+                'assets' => "assets"
+            );
+            return view('main/signup', $data);
+        }
 	}
 
     public function new()
