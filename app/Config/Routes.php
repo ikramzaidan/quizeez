@@ -31,19 +31,22 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Main::index');
+$routes->get('profile', 'Main::profile', ['filter' => 'loginfilter']);
 $routes->group('group', function($routes)
 {
 	$routes->get('(:segment)', 'Main::group/$1');
     $routes->get('(:segment)/member', 'Group::member/$1');
 	$routes->get('(:segment)/quiz/create', 'Group::create_quiz/$1');
 	$routes->add('(:segment)/quiz/createNew', 'Group::create_quiz_insert/$1');
-	$routes->get('(:segment)/quiz/(:segment)','Quiz::index/$1/$2', ['filter' => 'loginfilter']);
-	$routes->get('(:segment)/quiz/(:segment)/edit','Quiz::edit/$1/$2', ['filter' => 'loginfilter']);
-	$routes->get('(:segment)/quiz/(:segment)/quest/create','Question::create/$1/$2', ['filter' => 'loginfilter']);
-	$routes->add('(:segment)/quiz/(:segment)/quest/createNew','Question::createNew/$1/$2', ['filter' => 'loginfilter']);
-	$routes->add('(:segment)/quiz/(:segment)/quest/uploadImage','Question::uploadImage/$1/$2', ['filter' => 'loginfilter']);
-	$routes->add('(:segment)/quiz/(:segment)/attempt','Quiz::attempt/$1/$2', ['filter' => 'loginfilter']);
-	$routes->add('(:segment)/quiz/(:segment)/answer/mark/(:segment)','Answer::mark/$1/$2/$3', ['filter' => 'loginfilter']);
+	$routes->get('(:segment)/quiz/(:segment)', 'Quiz::index/$1/$2', ['filter' => 'loginfilter']);
+	$routes->get('(:segment)/quiz/(:segment)/edit', 'Quiz::edit/$1/$2', ['filter' => 'loginfilter']);
+	$routes->get('(:segment)/quiz/(:segment)/quest/create', 'Question::create/$1/$2', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/quest/createNew', 'Question::createNew/$1/$2', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/quest/uploadImage', 'Question::uploadImage/$1/$2', ['filter' => 'loginfilter']);
+	$routes->get('(:segment)/quiz/(:segment)/attemptStart', 'Quiz::attemptStart/$1/$2', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/attempt/(:segment)', 'Quiz::attempt/$1/$2/$3', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/attempt/(:segment)/mark/(:segment)', 'Answer::mark/$1/$2/$3/$4', ['filter' => 'loginfilter']);
+	$routes->add('(:segment)/quiz/(:segment)/attempt/(:segment)/attemptFinish', 'Quiz::attemptFinish/$1/$2/$3', ['filter' => 'loginfilter']);
 });
 
 /**
