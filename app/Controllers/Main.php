@@ -12,6 +12,7 @@ class Main extends BaseController
 			$user    = $this->UserModel->where('username', $usr)->first();
 			$data    = $this->data;
 			$data['usrn'] = $user['username'];
+			$data['page'] = "Quizees - Beranda";
 
 			echo view('dashboard/sidebar', $data);
 			echo view('dashboard/content-home', $data);
@@ -20,6 +21,21 @@ class Main extends BaseController
 			return redirect()->to('login');
 		}
 
+	}
+
+	public function profile(){
+		$db       = $this->db;
+		$data     = $this->data;
+		$log      = $this->data['log'];
+		$usr      = $this->data['usr'];
+
+		$User = $this->UserModel->where('username', $usr)->first();
+		$data['usrn'] = $User['username'];
+		$data['page'] = "Quizees - Profil";
+
+		echo view('dashboard/sidebar', $data);
+		echo view('dashboard/content-profile', $data);
+		echo view('dashboard/footer', $data);
 	}
 
 	public function group($group_hash)
@@ -42,6 +58,7 @@ class Main extends BaseController
 						'group_hash'=> $group_hash,
 						'log'       => $log
 					];
+					$data['page'] = $Group['group_name'];
 					echo view('dashboard/sidebar', $data);
 					echo view('dashboard/content-group', $data);
 					echo view('dashboard/footer', $data);
