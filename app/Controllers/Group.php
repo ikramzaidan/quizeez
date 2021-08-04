@@ -176,10 +176,16 @@ class Group extends BaseController
 				if($Verif['level'] == 1){
 					$titl = $this->request->getVar('title');
 					if(isset($titl)){
+						$date_open = $this->request->getVar('date_open');
+						$time_open = $this->request->getVar('time_open');
+						$date_close = $this->request->getVar('date_close');
+						$time_close = $this->request->getVar('time_close');
 						$data = [
 							'id_group'   => $Group['id'],
 							'id_user'    => $user['id'],
 							'name'       => $titl,
+							'time_open'=> $date_open."T".$time_open.":00",
+							'time_close'=> $date_close."T".$time_close.":00",
 							'description'=> $this->request->getVar('desc'),
 							'duration'   => $this->request->getVar('duration'),
 						];
