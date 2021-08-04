@@ -40,15 +40,16 @@ class Question extends BaseController
 			if($VerifUser and $VerifQuiz){
 
 				$field = [
-                    'id_quiz'  => $Quiz['id'],
-                    'question' => $this->request->getVar('question'),
-                    'option_1' => $this->request->getVar('option_1'),
-                    'option_2' => $this->request->getVar('option_2'),
-                    'option_3' => $this->request->getVar('option_3')
+                    'id_quiz'    => $Quiz['id'],
+                    'question'   => $this->request->getVar('question'),
+                    'option_1'   => $this->request->getVar('option_1'),
+                    'option_2'   => $this->request->getVar('option_2'),
+                    'option_3'   => $this->request->getVar('option_3'),
+					'option_key' => $this->request->getVar('key')
                 ];
         
                 if($this->QuestionModel->save($field)){
-                    return redirect()->to('/login');
+                    return redirect()->to(base_url()."/group/".$Group['group_code']."/quiz/".$quiz_hash."/edit/");
                 }else{
                     return redirect()->to('');
                 }
