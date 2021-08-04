@@ -16,7 +16,7 @@
                                 <span><?= $Quiz['description']; ?></span>
                                 <div class="mt-5">
                                     <p>Durasi: <?= $Quiz['duration']; ?> Menit</p>
-                                    <a href="<?= base_url()."/group/".$Group['group_code']."/quiz/".$quiz_hash?>/attempt" 
+                                    <a href="<?= base_url()."/group/".$Group['group_code']."/quiz/".$quiz_hash?>/attemptStart" 
                                       class="btn btn-primary">Attempt</a>
                                 </div>
                             </div>

@@ -48,7 +48,9 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="mb-0 font-weight-bold text-gray-800"><?= $group->group_desc;?></div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <?php echo substr($group->group_desc, 0, 50);if(strlen($group->group_desc) > 50):echo"...";endif;
+                                                ?></div>
                                         </div>
                                     </div>
                                 </div>

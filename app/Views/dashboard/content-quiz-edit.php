@@ -49,7 +49,7 @@
                             <div class="col-md-4">
                                 <div class="card py-3 px-4">
                                     <span class="text-dark mb-3">Belum ada kuis di grup ini, coba buat disini.</span>
-                                    <a class="btn btn-primary">Tambah Soal</a>
+                                    <a href="<?= base_url()."/group/".$Group['group_code']."/quiz/".$quiz_hash?>/quest/create" class="btn btn-primary">Tambah Soal</a>
                                 </div>
                             </div>
                         </div>                    

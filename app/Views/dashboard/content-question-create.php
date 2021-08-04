@@ -45,6 +45,19 @@
                                                 </div>
                                             </div>
                                         </fieldset>
+                                        <fieldset class="form-group">
+                                            <div class="row">
+                                                <legend class="col-form-label col-sm-2 pt-0">Kunci Jawaban</legend>
+                                                <div class="col-sm-10">
+                                                    <select name="key" class="form-control">
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="C">C</option>
+                                                        <option value="D">D</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </fieldset>
                                         <div class="form-group row">
                                             <div class="col-sm-4">
                                                 <button type="submit" class="btn btn-primary">Tambah Soal</button>
