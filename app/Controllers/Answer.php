@@ -2,25 +2,34 @@
 
 class Answer extends BaseController
 {
-    function mark($group_hash, $quiz_hash, $id_question){
+    function mark($group_hash, $quiz_hash, $id_attempt, $id_question){
         $data          = $this->data;
 		$user          = $this->UserModel->where('username', $this->Session->sess_user)->first();
 		$Group         = $this->db->table('groups')->getWhere(['group_code'=>$group_hash])->getRowArray();
-        $data['usrn']  = $user['username'];
-		$data['group'] = $Group['id'];
 		if($Group){
 			$VerifUser   = $this->db->table('users_groups')->where('id_group', $Group['id'])->getWhere(['id_user'=>$user['id']])->getRowArray();
 			$VerifQuiz   = $this->db->table('quiz')->where('hash', $quiz_hash)->getWhere(['id_group'=>$Group['id']])->getRowArray();
             $VerifMark   = $this->db->table('questions')->where('id_quiz', $VerifQuiz['id'])->getWhere(['id'=>$id_question])->getRowArray();
+            $VerifAttm   = $this->db->table('attempts')->where('id_quiz', $VerifQuiz['id'])->getWhere(['id'=>$id_attempt])->getRowArray();
 			if($VerifUser and $VerifQuiz){
-                if($VerifMark){
-                    $Marked = $this->db->table('answers')->where('id_user', $user['id'])->getWhere(['id_question'=>$id_question])->getRowArray();
+                if($VerifMark and $VerifAttm){
+                    $Marked = $this->db->table('answers')->where('id_user', $user['id'])->where('id_attempt', $id_attempt)
+                                ->getWhere(['id_question'=>$id_question])->getRowArray();
+                    $Quest = $this->db->table('questions')->getWhere(['id'=>$id_question])->getRowArray();
                     if(!$Marked){
+                        $ans = $this->request->getVar('option');
+                        if($Quest['option_key'] == $ans){
+                            $status = 1;
+                        }else{
+                            $status = 0;
+                        }
                         $field = [
                             'id_quiz'    => $VerifQuiz['id'],
                             'id_user'    => $user['id'],
                             'id_question'=> $id_question,
-                            'answer'     => $this->request->getVar('option')
+                            'id_attempt' => $id_attempt,
+                            'answer'     => $ans,
+                            'status'     => $status
                         ];
                         
                         $save = $this->AnswerModel->insert($field);
@@ -31,9 +40,18 @@ class Answer extends BaseController
         
                         return $this->response->setJSON($data);
                     }else{
-                        $field = $this->request->getVar('option');
+                        $ans = $this->request->getVar('option');
+                        if($Quest['option_key'] == $ans){
+                            $status = 1;
+                        }else{
+                            $status = 0;
+                        }
+                        $field = [
+                            'answer' => $ans,
+                            'status' => $status
+                        ];
                         $builder = $this->db->table('answers');
-                        $builder->set('answer', $field);
+                        $builder->set($field);
                         $builder->where('id_user', $user['id']);
                         $builder->where('id_quiz', $VerifQuiz['id']);
                         $builder->where('id_question', $id_question);
