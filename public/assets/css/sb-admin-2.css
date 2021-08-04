@@ -10472,7 +10472,7 @@ a:focus {
 
 @media (min-width: 768px) {
   .sidebar {
-    width: 14rem !important;
+    width: 6.5rem !important;
   }
   .sidebar .nav-item .collapse {
     position: relative;
@@ -10496,18 +10496,16 @@ a:focus {
   }
   .sidebar .nav-item .nav-link {
     display: block;
-    width: 100%;
-    text-align: left;
-    padding: 1rem;
-    width: 14rem;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    width: 6.5rem;
   }
   .sidebar .nav-item .nav-link i {
-    font-size: 0.85rem;
-    margin-right: 0.25rem;
+    font-size: 1.5rem;
   }
   .sidebar .nav-item .nav-link span {
-    font-size: 0.85rem;
-    display: inline;
+    font-size: 0.65rem;
+    display: block;
   }
   .sidebar .nav-item .nav-link[data-toggle="collapse"]::after {
     width: 1rem;
@@ -10518,6 +10516,7 @@ a:focus {
     font-weight: 900;
     content: '\f107';
     font-family: 'Font Awesome 5 Free';
+    display: none;
   }
   .sidebar .nav-item .nav-link[data-toggle="collapse"].collapsed::after {
     content: '\f105';
@@ -10526,10 +10525,10 @@ a:focus {
     font-size: 2rem;
   }
   .sidebar .sidebar-brand .sidebar-brand-text {
-    display: inline;
+    display: none;
   }
   .sidebar .sidebar-heading {
-    text-align: left;
+    text-align: center;
   }
   .sidebar.toggled {
     overflow: visible;
